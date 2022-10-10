@@ -17,15 +17,30 @@ export class AtendimentoListComponent implements OnInit, IList<Atendimento> {
 
   registros: Atendimento[] = Array<Atendimento>();
 
-  get(termoBusca?: string | undefined): void {
-    console.log(termoBusca)
-  }
+  status: string[] = ['CHEGADA', 'CONFIRMADO'];
 
+  get(termoBusca?: string | undefined): void {
+    this.servico.getByStatus(this.status,termoBusca).subscribe ({
+      next: (resposta: Atendimento[]) => {
+        this.registros = resposta.sort((a, b) => a.data.localeCompare(b.data));
+      }
+    })
+  }
   delete(id: number): void {
     throw new Error('Method not implemented.');
   }
+  updateStatus(id: number): void{
+    if ( confirm('Confirmar alteração no status do agendamento?')) {
+      this.servico.updateStatus(id).subscribe({
+        complete: () => {
+          this.get();
+        }
+      })
+    }
+  }
 
   ngOnInit(): void {
+    this.get();
   }
 
 }

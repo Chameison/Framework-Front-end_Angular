@@ -304,11 +304,11 @@ a.botao.finalizar {
     width: 5.5em;
 }
 
-a.botao.excluir {
+a.botao.excluir, input[value="Cancelar"] {
     background-color: #c42626;
 }
 
-a.botao.excluir:hover {
+a.botao.excluir:hover, input[value="Cancelar"]:hover {
     background-color: #811b1b;
 }
 a.botao, input[type="button"], input[type="submit"]{
@@ -320,6 +320,11 @@ app-atendimento-list div#comandos a.botao { /*seletor de elemtnos*/
   visibility: hidden;
 }
 
+input[type="submit"]:disabled {
+  background-color: #cccccc;
+  color: #757575;
+  cursor: not-allowed;
+}
 
 /* Main */
 

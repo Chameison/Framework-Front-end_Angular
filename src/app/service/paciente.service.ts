@@ -2,16 +2,23 @@ import { ICrudService } from './i-crud-service';
 import { Injectable } from '@angular/core';
 import { Paciente } from '../model/paciente';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PacienteService implements ICrudService<Paciente> {
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { }
   apiUrl: string = '';
   get(termoBusca?: string): Observable<Paciente[]> {
-    throw new Error('Method not implemented.');
+    let url = this.apiUrl;
+    if ( termoBusca) {
+      url += 'busca/' + termoBusca;
+    }
+    return this.http.get<Paciente[]>(url);
   }
   getById(id: number): Observable<Paciente[]> {
     throw new Error('Method not implemented.');

@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Convenio } from '../model/convenio';
@@ -8,11 +9,17 @@ import { ICrudService } from './i-crud-service';
 })
 export class ConvenioService implements ICrudService<Convenio>{
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   apiUrl: string = '';
   get(termoBusca?: string): Observable<Convenio[]> {
-    throw new Error('Method not implemented.');
+    let url = this.apiUrl;
+    if ( termoBusca) {
+      url += 'busca/' + termoBusca;
+    }
+    return this.http.get<Convenio[]>(url);
   }
   getById(id: number): Observable<Convenio[]> {
     throw new Error('Method not implemented.');

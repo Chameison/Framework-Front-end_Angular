@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Atendimento } from 'src/app/model/atendimento';
 import { Convenio } from 'src/app/model/convenio';
 import { Paciente } from 'src/app/model/paciente';
@@ -24,7 +25,8 @@ export class AgendaFormComponent implements OnInit, IForm<Atendimento> {
     private servico: AtendimentoService,
     private servicoConvenio: ConvenioService,
     private servicoPaciente: PacienteService,
-    private servicoProfissional: ProfissionalService
+    private servicoProfissional: ProfissionalService,
+    private route: ActivatedRoute
   ) { }
 
   registro: Atendimento = <Atendimento>{};
@@ -37,6 +39,31 @@ export class AgendaFormComponent implements OnInit, IForm<Atendimento> {
   }
 
   ngOnInit(): void {
+    this.servicoConvenio.get().subscribe({
+      next: (resposta: Convenio[]) => {
+        this.convenios = resposta;
+      }
+    })
+
+    this.servicoProfissional.get().subscribe({
+      next: (resposta: Profissional[]) => {
+        this.profissionais = resposta;
+      }
+    })
+    this.servicoPaciente.get().subscribe({
+      next: (resposta: Paciente[]) => {
+        this.pacientes = resposta;
+      }
+    })
+
+    const id = this.route.snapshot.queryParamMap.get('id');
+    if(id) {
+      this.servico.getById(+id).subscribe({
+        next: (resposta: Atendimento) => {
+          this.registro = resposta;
+        }
+      })
+    }
   }
 
 }

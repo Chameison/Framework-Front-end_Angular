@@ -22,7 +22,7 @@
             name="data"
             [(ngModel)]="registro.data"
             required>
-        
+
         <label for="hora">Hora</label>
         <select
                 name="hora"
@@ -47,8 +47,7 @@
         <label for="convenio">Convênio</label>
         <select
                 name="convenio"
-                [(ngModel)]="registro.convenio"
-                required>
+                [(ngModel)]="registro.convenio">
             <option value="">Selecione</option>
             <option
                     *ngFor="let item of convenios"

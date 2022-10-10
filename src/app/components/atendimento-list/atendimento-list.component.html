@@ -20,9 +20,9 @@
             <td>{{item.profissional.unidade.nome}}</td>
             <td>{{item.convenio?.nome}}</td>
             <td class="centralizado">
-                <a class="botao iniciar"
+                <a class="botao iniciar " (click)="updateStatus(item.id)"
                     [ngClass]="{'inativo': item.status == 'ATENDIMENTO'}">Iniciar</a>
-                <a class="botao finalizar excluir"
+                <a class="botao finalizar excluir"  (click)="updateStatus(item.id)"
                     [ngClass]="{'inativo': item.status == 'CHEGADA'}">Finalizar</a>
             </td>
         </tr>

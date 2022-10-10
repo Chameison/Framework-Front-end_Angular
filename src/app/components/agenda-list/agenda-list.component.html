@@ -20,9 +20,9 @@
             <td>{{item.profissional.unidade.nome}}</td>
             <td>{{item.convenio?.nome}}</td>
             <td>
-                <a class="botao chegada"
+                <a class="botao chegada" (click)="updateStatus(item.id)"
                     [ngClass]="{'inativo': item.status == 'AGENDADO'}">Chegada</a>
-                <a class="botao confirmacao"
+                <a class="botao confirmacao"(click)="updateStatus(item.id)"
                     [ngClass]="{'inativo': item.status == 'CONFIRMADO'}">Confirmar</a>
                 <a class="botao"
                     routerLink="/agenda/form"
